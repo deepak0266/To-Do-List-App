@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:elevation="4dp"
+        app:cardCornerRadius="8dp"
+        app:cardMaxElevation="8dp">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/gradient_ruins"
+            android:layout_margin="1dp"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:id="@+id/ll1">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/taskTitleTextView"
+                    android:text="Task Title"
+                    android:textStyle="italic"
+                    android:textSize="18sp"
+                    android:textColor="@color/black"
+                    android:fontFamily="sans-serif-black"
+                    android:contentDescription="Task Title"/>
+            </LinearLayout>
+
+            <TextView
+                android:contentDescription="Task Description"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Task Title Description"
+                android:textStyle="italic"
+                android:textColor="@color/black"
+                android:textAlignment="center"
+                android:layout_marginStart="8dp"
+                android:textSize="18sp"
+                android:id="@+id/descriptionTextView"
+                />
+
+            <TextView
+                android:contentDescription="Task Due Date"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Due Date"
+                android:textStyle="italic"
+                android:textAlignment="textEnd"
+                android:textColor="@color/black"
+                android:layout_marginStart="8dp"
+                android:textSize="18sp"
+                android:id="@+id/dateTextView"/>
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+</RelativeLayout>
