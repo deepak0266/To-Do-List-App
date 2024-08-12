@@ -2,13 +2,11 @@ package com.example.todolistapp
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
-import androidx.fragment.app.FragmentStatePagerAdapter
+import androidx.fragment.app.FragmentPagerAdapter
 
-class ViewPagerFragmentAdapter(
-    fm: FragmentManager,
-    val fragments: MutableList<Fragment>,
-    private val titles: MutableList<String>
-) : FragmentStatePagerAdapter(fm, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
+class ViewPagerFragmentAdapter(fm: FragmentManager, var fragments: List<Fragment>, private var titles: List<String>) :
+    FragmentPagerAdapter(fm) {
+
 
     override fun getCount(): Int = fragments.size
 

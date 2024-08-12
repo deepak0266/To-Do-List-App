@@ -8,6 +8,8 @@ import android.view.MenuItem
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager.widget.ViewPager
 import com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -16,23 +18,36 @@ import com.google.android.material.tabs.TabLayout
 // Singleton for Task Management
 object TaskManager {
     val pendingTasks: MutableList<AddTaskModel> = mutableListOf(
-        AddTaskModel("Morning Workout", "30 minutes of cardio", "Today"),
+        AddTaskModel("Morning Workout", "30 minutes of Abs", "Today"),
         AddTaskModel("Task 2", "Description 2", null),
         AddTaskModel("Task 3", null, "2024-02-15")
     )
     val completedTasks: MutableList<AddTaskModel> = mutableListOf()
     val overdueTasks: MutableList<AddTaskModel> = mutableListOf()
 }
+
+// App Manager Singleton
+object AppManager {
+    lateinit var adapter: ViewPagerFragmentAdapter
+}
+
 class MainActivity : AppCompatActivity() {
 
     private lateinit var toolbar: androidx.appcompat.widget.Toolbar
     private lateinit var fab: FloatingActionButton
-    private lateinit var adapter: ViewPagerFragmentAdapter
+    private lateinit var pendingTaskAdapter: PendingTaskAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
+
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(R.layout.activity_main)
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main))
+        { v, insets ->
+            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
+            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
+            insets
+        }
 
         toolbar = findViewById(R.id.task_toolbar)
         fab = findViewById(R.id.fab)
@@ -40,16 +55,21 @@ class MainActivity : AppCompatActivity() {
         val viewPager: ViewPager = findViewById(R.id.viewPager)
         val tabLayout: TabLayout = findViewById(R.id.tab_layout)
 
-        val fragments = mutableListOf(
+        // Add fragments and titles, passing the adapter
+        val fragments = listOf(
             pendingFragment(),
             completedFragment(),
             overdueFragment()
         )
-        val titles = mutableListOf("Pending", "Completed", "Overdue")
+        val titles = listOf("Pending", "Completed", "Overdue")
 
-        adapter = ViewPagerFragmentAdapter(supportFragmentManager, fragments, titles)
-        viewPager.adapter = adapter
+        // Initialize the adapter AFTER creating fragments and titles
+        AppManager.adapter = ViewPagerFragmentAdapter(supportFragmentManager, fragments, titles)
+
+        viewPager.adapter = AppManager.adapter
         tabLayout.setupWithViewPager(viewPager)
+
+        pendingTaskAdapter = PendingTaskAdapter(TaskManager.pendingTasks,AppManager.adapter)
 
         fab.setOnClickListener {
             val dialog: Dialog = Dialog(this)
@@ -69,7 +89,8 @@ class MainActivity : AppCompatActivity() {
                     val newTask = AddTaskModel(taskTitle, taskDescription, taskDueDate)
                     TaskManager.pendingTasks.add(newTask)
 
-                    adapter.fragments[0].view?.findViewById<RecyclerView>(R.id.pending_task_recycler_view)?.adapter?.notifyItemInserted(TaskManager.pendingTasks.size - 1)
+                    // Update the pending fragment's RecyclerView
+                    AppManager.adapter.fragments[0].view?.findViewById<RecyclerView>(R.id.pending_task_recycler_view)?.adapter?.notifyItemInserted(TaskManager.pendingTasks.size - 1)
                     Toast.makeText(this, "Task added successfully", Toast.LENGTH_SHORT).show()
                     dialog.dismiss()
                 } else {

@@ -53,4 +53,7 @@
     <color name="magenta_light">#FFFF00FF</color>
     <color name="magenta">#FF8800FF</color>
     <color name="magenta_dark">#FF440088</color>
+
+    <!-- -->
+    <color name="random">#757f9a</color>
 </resources>

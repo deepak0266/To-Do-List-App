@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 class completedFragment : Fragment() {
 
     private lateinit var completedTaskAdapter: CompletedTaskAdapter
-    private lateinit var recyclerView: RecyclerView
+    lateinit var recyclerView: RecyclerView
     private lateinit var completedTasks: MutableList<AddTaskModel>
 
     override fun onCreateView(
