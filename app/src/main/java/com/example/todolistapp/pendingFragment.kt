@@ -20,8 +20,7 @@ class pendingFragment : Fragment() {
         val view = inflater.inflate(R.layout.fragment_pending, container, false)
         recyclerView = view.findViewById(R.id.pending_task_recycler_view)
 
-        // Create the adapter and pass the adapter from the fragment
-        pendingTaskAdapter = PendingTaskAdapter(TaskManager.pendingTasks,AppManager.adapter) // No adapter here
+        pendingTaskAdapter = PendingTaskAdapter(TaskManager.pendingTasks,AppManager.adapter)
         recyclerView.adapter = pendingTaskAdapter
         recyclerView.layoutManager = LinearLayoutManager(context)
 

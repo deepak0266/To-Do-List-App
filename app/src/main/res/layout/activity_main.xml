@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:id="@+id/main"
     android:layout_height="match_parent"
-    android:background="@drawable/gradient_ruins"
+    android:background="@color/random2"
     tools:context=".MainActivity">
 
     <androidx.appcompat.widget.Toolbar
@@ -14,7 +14,6 @@
         android:layout_height="?attr/actionBarSize"
         android:background="@drawable/rounded_toolbar_black"
         android:elevation="8dp"
-        android:layout_marginTop="4dp"
         android:layout_marginBottom="4dp"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
         app:title="All Lists"
@@ -22,7 +21,7 @@
         app:titleTextColor="@android:color/white">
 
         <!-- Search View -->
-            <androidx.appcompat.widget.SearchView
+        <androidx.appcompat.widget.SearchView
                 android:id="@+id/search_view"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -35,7 +34,7 @@
     <com.google.android.material.tabs.TabLayout
         android:layout_width="match_parent"
         android:layout_below="@+id/task_toolbar"
-        android:background="@drawable/gradient_ruins"
+        android:background="@color/random"
         android:layout_height="wrap_content"
         android:contentDescription="Tab Layout"
         android:id="@+id/tab_layout"
@@ -47,25 +46,18 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/tab_layout"
-            android:layout_above="@+id/empty_state_message"
+            android:layout_above="@+id/quick_task_recycler_view"
             android:id="@+id/viewPager"
             android:contentDescription="Tab ViewPager"
             />
 
 
     <!-- Empty State Message -->
-    <TextView
-        android:id="@+id/empty_state_message"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
-        android:layout_marginTop="8dp"/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/quick_task_recycler_view"
-        android:layout_below="@id/empty_state_message"
         android:layout_above="@id/fab"
         android:layout_marginTop="8dp"/>
 
